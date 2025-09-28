@@ -1,0 +1,14 @@
+{
+  "urls": [
+    ["__init__.py", "bleak/__init__.py"],
+    ["exc.py", "bleak/exc.py"],
+    ["uuids.py", "bleak/uuids.py"],
+    ["backends/__init__.py", "bleak/backends/__init__.py"],
+    ["backends/characteristic.py", "bleak/backends/characteristic.py"],
+    ["backends/device.py", "bleak/backends/device.py"]
+  ],
+  "deps": [
+    ["aioble", "latest"]
+  ],
+  "version": "0.1"
+}
