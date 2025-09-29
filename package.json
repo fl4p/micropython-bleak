@@ -1,11 +1,11 @@
 {
   "urls": [
-    ["__init__.py","__init__.py"],
-    ["exc.py","exc.py"],
-    ["uuids.py","uuids.py"],
-    ["backends/__init__.py","backends/__init__.py"],
-    ["backends/characteristic.py","backends/characteristic.py"],
-    ["backends/device.py","backends/device.py"]
+    ["bleak/__init__.py","__init__.py"],
+    ["bleak/exc.py","exc.py"],
+    ["bleak/uuids.py","uuids.py"],
+    ["bleak/backends/__init__.py","backends/__init__.py"],
+    ["bleak/backends/characteristic.py","backends/characteristic.py"],
+    ["bleak/backends/device.py","backends/device.py"]
   ],
   "deps": [
     ["aioble", "latest"]
