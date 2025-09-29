@@ -1,4 +1,5 @@
 import asyncio
+import time
 
 import aioble
 from aioble import DeviceDisconnectedError
@@ -20,6 +21,21 @@ class BleakScanner():
                 if result.name() == dev_name:
                     return BLEDevice(result)
         print('ble device not found', dev_name)
+
+    @staticmethod
+    async def discover(timeout: float = 5.0) -> list[BLEDevice]:
+        addrs = set()
+        discovered = []
+        t0 = time.time()
+        async with aioble.scan(int(timeout*1000), interval_us=30000, window_us=30000, active=True) as scanner:
+            async for result in scanner:
+                if result.device.addr not in addrs:
+                    print('found ble device', result.device.addr, result.name())
+                    addrs.add(result.device.addr)
+                    discovered.append(BLEDevice(result))
+                if time.time() - t0 > timeout:
+                    break
+        return discovered
 
 
 class Service():
