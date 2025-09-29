@@ -3,7 +3,7 @@ import asyncio
 import aioble
 from aioble import DeviceDisconnectedError
 from aioble.client import ClientService, ClientCharacteristic
-from backends.characteristic import BleakGATTCharacteristic
+from bleak.backends.characteristic import BleakGATTCharacteristic
 from bleak.backends.device import BLEDevice
 from bleak.uuids import normalize_uuid_str
 
@@ -117,7 +117,7 @@ class BleakClient(object):
         return (self.device.aioble_connection is not None) and self.device.aioble_connection.is_connected()
 
     async def start_notify(self, char, callback):
-        print('start notify', char, callback)
+        # print('start notify', char, callback)
         # https://github.com/micropython/micropython-lib/blob/bdc4706cc700ae1c0a4520e252897bb0e03c327b/micropython/bluetooth/aioble/README.md#subscribe-to-a-characteristic-client
         char_ = self.services.get_characteristic(char)._char
         await char_.subscribe(notify=True)
