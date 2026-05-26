@@ -110,6 +110,12 @@ class BleakClient(object):
     async def disconnect(self):
         if self.device.aioble_connection:
             await self.device.aioble_connection.disconnect()
+        # On reconnect aioble issues fresh ClientCharacteristic objects;
+        # reusing the cached ones causes AttributeError ('NoneType' has
+        # no '_char') in start_notify on the next attempt.
+        self._services = None
+        self.callback = {}
+        self._notify_task = None
         print('disconnected')
 
     @property
