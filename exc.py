@@ -1,3 +1,10 @@
+class BleakError(Exception):
+    pass
 
-class BleakError():
+
+class BleakDeviceNotFoundError(BleakError):
+    pass
+
+
+class BleakDBusError(BleakError):
     pass
