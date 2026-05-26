@@ -134,17 +134,21 @@ class BleakClient(object):
 
     async def notify_loop(self):
         char: ClientCharacteristic
-        # print('notify loop running..')
         while self.is_connected and len(self.callbacks) > 0:
             for uuid, (cb, char) in self.callbacks.items():
                 try:
                     data = await char.notified(2000)
-                    # print('got notified data', uuid,len(data), data, cb)
-                    # print('got notified data', uuid, len(data))
                     cb(char, data)
                 except asyncio.TimeoutError:
                     pass
                 except DeviceDisconnectedError:
+                    break
+                except Exception as e:
+                    # Don't let an unexpected error in the callback or the
+                    # aioble stack kill the loop silently — it's a
+                    # background task and the failure would otherwise be
+                    # invisible to the caller.
+                    print('notify_loop: unexpected', type(e).__name__, e)
                     break
         self.callbacks.clear()
         print('notify loop ended.')
